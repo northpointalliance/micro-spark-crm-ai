@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { mockContacts, Contact } from "@/data/mockData";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { EditContactDialog } from "@/components/EditContactDialog";
 import {
   Select,
   SelectContent,
@@ -21,7 +21,6 @@ export default function Contacts() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
 
-  // Filter contacts based on search term and status
   const filteredContacts = mockContacts.filter((contact) => {
     const matchesSearch =
       searchTerm === "" ||
@@ -97,6 +96,10 @@ export default function Contacts() {
 }
 
 function ContactCard({ contact }: { contact: Contact }) {
+  const handleSave = (updatedContact: Contact) => {
+    console.log('Contact updated:', updatedContact);
+  };
+
   return (
     <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
@@ -116,20 +119,23 @@ function ContactCard({ contact }: { contact: Contact }) {
             </div>
           </div>
         </div>
-        <Badge
-          variant="outline"
-          className={
-            contact.status === "customer"
-              ? "bg-green-50 text-green-700 hover:bg-green-50"
-              : contact.status === "prospect"
-              ? "bg-blue-50 text-blue-700 hover:bg-blue-50"
-              : contact.status === "lead"
-              ? "bg-yellow-50 text-yellow-700 hover:bg-yellow-50"
-              : "bg-gray-50 text-gray-700 hover:bg-gray-50"
-          }
-        >
-          {contact.status}
-        </Badge>
+        <div className="flex items-center gap-2">
+          <EditContactDialog contact={contact} onSave={handleSave} />
+          <Badge
+            variant="outline"
+            className={
+              contact.status === "customer"
+                ? "bg-green-50 text-green-700 hover:bg-green-50"
+                : contact.status === "prospect"
+                ? "bg-blue-50 text-blue-700 hover:bg-blue-50"
+                : contact.status === "lead"
+                ? "bg-yellow-50 text-yellow-700 hover:bg-yellow-50"
+                : "bg-gray-50 text-gray-700 hover:bg-gray-50"
+            }
+          >
+            {contact.status}
+          </Badge>
+        </div>
       </div>
 
       {(contact.phone || contact.tags) && (
