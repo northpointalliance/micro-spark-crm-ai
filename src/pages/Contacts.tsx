@@ -61,7 +61,7 @@ export default function Contacts() {
             </div>
             <Select
               value={statusFilter || ""}
-              onValueChange={(value) => setStatusFilter(value || null)}
+              onValueChange={(value) => setStatusFilter(value === "all" ? null : value)}
             >
               <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Filter by status" />
@@ -69,7 +69,7 @@ export default function Contacts() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Status</SelectLabel>
-                  <SelectItem value="">All Contacts</SelectItem>
+                  <SelectItem value="all">All Contacts</SelectItem>
                   <SelectItem value="lead">Leads</SelectItem>
                   <SelectItem value="prospect">Prospects</SelectItem>
                   <SelectItem value="customer">Customers</SelectItem>

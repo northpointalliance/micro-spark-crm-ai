@@ -59,7 +59,6 @@ export default function Messages() {
   };
   
   const generateWithAI = () => {
-    // In a real app, this would call an AI service
     const aiResponses = [
       "I noticed you recently viewed our premium service offerings. I'd love to answer any questions you might have about how our solutions could benefit your specific needs.",
       "Following up on our conversation about streamlining your customer engagement. Our platform could help you save up to 5 hours per week on routine communications while maintaining that personal touch.",
@@ -91,7 +90,6 @@ export default function Messages() {
       description: "Your message has been sent successfully",
     });
     
-    // Reset form
     setMessageContent('');
     setMessageSubject('');
   };
