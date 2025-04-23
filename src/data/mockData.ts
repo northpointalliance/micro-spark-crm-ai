@@ -178,14 +178,14 @@ export const mockTemplates: Template[] = [
     id: '2',
     name: 'Introduction Email',
     subject: 'Nice to meet you - {{company}}',
-    content: 'Hi {{name}},\n\nIt was great meeting you at {{event}}. I'd love to continue our conversation about {{topic}}.\n\nBest regards,\n{{user}}',
+    content: 'Hi {{name}},\n\nIt was great meeting you at {{event}}. I\'d love to continue our conversation about {{topic}}.\n\nBest regards,\n{{user}}',
     category: 'introduction',
   },
   {
     id: '3',
     name: 'Proposal Follow-up',
     subject: 'Regarding our proposal',
-    content: 'Dear {{name}},\n\nI'm writing to follow up on the proposal we sent last week. I'd be happy to answer any questions or provide additional information.\n\nBest regards,\n{{user}}',
+    content: 'Dear {{name}},\n\nI'm writing to follow up on the proposal we sent last week. I\'d be happy to answer any questions or provide additional information.\n\nBest regards,\n{{user}}',
     category: 'proposal',
   },
 ];
