@@ -185,7 +185,7 @@ export const mockTemplates: Template[] = [
     id: '3',
     name: 'Proposal Follow-up',
     subject: 'Regarding our proposal',
-    content: 'Dear {{name}},\n\nI'm writing to follow up on the proposal we sent last week. I\'d be happy to answer any questions or provide additional information.\n\nBest regards,\n{{user}}',
+    content: 'Dear {{name}},\n\nI\'m writing to follow up on the proposal we sent last week. I\'d be happy to answer any questions or provide additional information.\n\nBest regards,\n{{user}}',
     category: 'proposal',
   },
 ];
