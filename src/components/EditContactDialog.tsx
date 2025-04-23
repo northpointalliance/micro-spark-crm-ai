@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { Edit } from "lucide-react";  // Corrected icon import
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Contact } from "@/data/mockData";
-import { edit } from "lucide-react";
 
 interface EditContactDialogProps {
   contact: Contact;
@@ -33,7 +33,7 @@ export function EditContactDialog({ contact, onSave }: EditContactDialogProps) {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm">
-          <edit className="h-4 w-4" />
+          <Edit className="h-4 w-4" />  {/* Corrected icon usage */}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
