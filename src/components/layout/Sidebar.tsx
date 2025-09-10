@@ -10,6 +10,7 @@ import {
   BarChart2,
   Settings,
   Mail,
+  Brain,
   Menu,
   X
 } from "lucide-react";
@@ -40,6 +41,11 @@ const navItems: NavItem[] = [
     title: "Email",
     href: "/email",
     icon: <Mail className="h-5 w-5" />,
+  },
+  {
+    title: "Insights",
+    href: "/insights",
+    icon: <Brain className="h-5 w-5" />,
   },
   {
     title: "Analytics",

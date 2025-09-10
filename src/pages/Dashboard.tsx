@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
+import InsightsCard from "@/components/InsightsCard";
 
 export default function Dashboard() {
   // Get counts
@@ -174,6 +175,9 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+      
+      {/* AI Insights Card */}
+      <InsightsCard />
       
       {/* AI Assistant Card */}
       <Card className="bg-gradient-to-r from-crm-blue-light to-white">

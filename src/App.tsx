@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Contacts from "./pages/Contacts";
 import Messages from "./pages/Messages";
 import Email from "./pages/Email";
+import Insights from "./pages/Insights";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/email" element={<Email />} />
+            <Route path="/insights" element={<Insights />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
