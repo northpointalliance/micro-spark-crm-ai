@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Home,
   Users,
@@ -12,7 +13,8 @@ import {
   Mail,
   Brain,
   Menu,
-  X
+  X,
+  Shield
 } from "lucide-react";
 
 type NavItem = {
@@ -62,6 +64,15 @@ const navItems: NavItem[] = [
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const { isAdmin } = useAuth();
+
+  const adminItems: NavItem[] = [
+    {
+      title: "Admin Panel",
+      href: "/admin",
+      icon: <Shield className="h-5 w-5" />,
+    },
+  ];
 
   return (
     <div
@@ -103,6 +114,28 @@ export default function Sidebar() {
           </Link>
         ))}
       </nav>
+
+      {isAdmin && (
+        <nav className="px-4 pb-2 space-y-2 border-t border-gray-200 pt-2">
+          {adminItems.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className={cn(
+                "flex items-center p-3 text-sm font-medium rounded-md transition-colors",
+                "hover:bg-crm-blue-light hover:text-crm-blue",
+                location.pathname === item.href
+                  ? "bg-crm-blue-light text-crm-blue"
+                  : "text-crm-gray-dark",
+                collapsed ? "justify-center" : "justify-start"
+              )}
+            >
+              {item.icon}
+              {!collapsed && <span className="ml-3">{item.title}</span>}
+            </Link>
+          ))}
+        </nav>
+      )}
 
       <div className="p-4 border-t border-gray-200">
         <div 
