@@ -14,7 +14,8 @@ import {
   Brain,
   Menu,
   X,
-  Shield
+  Shield,
+  Plug
 } from "lucide-react";
 
 type NavItem = {
@@ -48,6 +49,11 @@ const navItems: NavItem[] = [
     title: "Insights",
     href: "/insights",
     icon: <Brain className="h-5 w-5" />,
+  },
+  {
+    title: "Integrations",
+    href: "/integrations",
+    icon: <Plug className="h-5 w-5" />,
   },
   {
     title: "Analytics",

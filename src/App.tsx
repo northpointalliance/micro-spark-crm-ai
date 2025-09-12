@@ -13,6 +13,7 @@ import Contacts from "./pages/Contacts";
 import Messages from "./pages/Messages";
 import Email from "./pages/Email";
 import Insights from "./pages/Insights";
+import Integrations from "./pages/Integrations";
 import AdminManagement from "./pages/AdminManagement";
 import NotFound from "./pages/NotFound";
 
@@ -70,6 +71,14 @@ function AppRoutes() {
           element={
             <AuthGuard>
               <Insights />
+            </AuthGuard>
+          } 
+        />
+        <Route 
+          path="/integrations" 
+          element={
+            <AuthGuard>
+              <Integrations />
             </AuthGuard>
           } 
         />

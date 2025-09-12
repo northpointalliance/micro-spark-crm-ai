@@ -38,9 +38,16 @@ export default function Contacts() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-2xl font-bold tracking-tight">Contacts</h1>
-        <Button className="bg-crm-blue hover:bg-crm-blue-dark">
-          <Plus className="mr-2 h-4 w-4" /> Add Contact
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" asChild>
+            <a href="/integrations">
+              <Plus className="mr-2 h-4 w-4" /> Import from LinkedIn
+            </a>
+          </Button>
+          <Button className="bg-crm-blue hover:bg-crm-blue-dark">
+            <Plus className="mr-2 h-4 w-4" /> Add Contact
+          </Button>
+        </div>
       </div>
 
       <Card>
