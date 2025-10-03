@@ -82,7 +82,7 @@ src/
 ### Database Files (.sql)
 - **database-setup.sql** - Supabase database schema
 
-### Serverless Functions (.ts)
+### Edge Functions (Future) (.ts)
 - **supabase/functions/analyze-web-content/index.ts** - Content analysis API
 
 ## Key Features Implemented

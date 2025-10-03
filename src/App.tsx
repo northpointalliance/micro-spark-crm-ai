@@ -8,12 +8,11 @@ import Layout from "./components/layout/Layout";
 import { AuthGuard } from "./components/auth/AuthGuard";
 import { AuthPage } from "./components/auth/AuthPage";
 import { useAuth } from "./hooks/useAuth";
+import TimeTracking from "./pages/TimeTracking";
+import JobSites from "./pages/JobSites";
+import Workers from "./pages/Workers";
+import Timesheets from "./pages/Timesheets";
 import Dashboard from "./pages/Dashboard";
-import Contacts from "./pages/Contacts";
-import Messages from "./pages/Messages";
-import Email from "./pages/Email";
-import Insights from "./pages/Insights";
-import Integrations from "./pages/Integrations";
 import AdminManagement from "./pages/AdminManagement";
 import NotFound from "./pages/NotFound";
 
@@ -38,47 +37,39 @@ function AppRoutes() {
           path="/" 
           element={
             <AuthGuard>
+              <TimeTracking />
+            </AuthGuard>
+          } 
+        />
+        <Route 
+          path="/job-sites" 
+          element={
+            <AuthGuard>
+              <JobSites />
+            </AuthGuard>
+          } 
+        />
+        <Route 
+          path="/workers" 
+          element={
+            <AuthGuard>
+              <Workers />
+            </AuthGuard>
+          } 
+        />
+        <Route 
+          path="/timesheets" 
+          element={
+            <AuthGuard>
+              <Timesheets />
+            </AuthGuard>
+          } 
+        />
+        <Route 
+          path="/reports" 
+          element={
+            <AuthGuard>
               <Dashboard />
-            </AuthGuard>
-          } 
-        />
-        <Route 
-          path="/contacts" 
-          element={
-            <AuthGuard>
-              <Contacts />
-            </AuthGuard>
-          } 
-        />
-        <Route 
-          path="/messages" 
-          element={
-            <AuthGuard>
-              <Messages />
-            </AuthGuard>
-          } 
-        />
-        <Route 
-          path="/email" 
-          element={
-            <AuthGuard>
-              <Email />
-            </AuthGuard>
-          } 
-        />
-        <Route 
-          path="/insights" 
-          element={
-            <AuthGuard>
-              <Insights />
-            </AuthGuard>
-          } 
-        />
-        <Route 
-          path="/integrations" 
-          element={
-            <AuthGuard>
-              <Integrations />
             </AuthGuard>
           } 
         />
