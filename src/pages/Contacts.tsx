@@ -6,6 +6,14 @@ import { mockContacts, Contact } from "@/data/mockData";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { EditContactDialog } from "@/components/EditContactDialog";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -20,8 +28,17 @@ import { Search, Plus, Trash, Mail, Phone } from "lucide-react";
 export default function Contacts() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  const [contacts, setContacts] = useState<Contact[]>(mockContacts);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [newContact, setNewContact] = useState<Partial<Contact>>({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    status: "lead",
+  });
 
-  const filteredContacts = mockContacts.filter((contact) => {
+  const filteredContacts = contacts.filter((contact) => {
     const matchesSearch =
       searchTerm === "" ||
       contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -34,13 +51,96 @@ export default function Contacts() {
     return matchesSearch && matchesStatus;
   });
 
+  const handleAddContact = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newContact.name || !newContact.email) return;
+    const contact: Contact = {
+      id: `contact-${Date.now()}`,
+      name: newContact.name,
+      email: newContact.email,
+      phone: newContact.phone || undefined,
+      company: newContact.company || undefined,
+      status: (newContact.status as Contact["status"]) || "lead",
+    };
+    setContacts([contact, ...contacts]);
+    setNewContact({ name: "", email: "", phone: "", company: "", status: "lead" });
+    setIsAddOpen(false);
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-2xl font-bold tracking-tight">Contacts</h1>
-        <Button className="bg-crm-blue hover:bg-crm-blue-dark">
-          <Plus className="mr-2 h-4 w-4" /> Add Contact
-        </Button>
+        <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
+          <DialogTrigger asChild>
+            <Button className="bg-crm-blue hover:bg-crm-blue-dark">
+              <Plus className="mr-2 h-4 w-4" /> Add Contact
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Add New Contact</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleAddContact} className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="new-name">Name *</Label>
+                <Input
+                  id="new-name"
+                  value={newContact.name}
+                  onChange={(e) => setNewContact({ ...newContact, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="new-email">Email *</Label>
+                <Input
+                  id="new-email"
+                  type="email"
+                  value={newContact.email}
+                  onChange={(e) => setNewContact({ ...newContact, email: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="new-phone">Phone</Label>
+                <Input
+                  id="new-phone"
+                  type="tel"
+                  value={newContact.phone}
+                  onChange={(e) => setNewContact({ ...newContact, phone: e.target.value })}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="new-company">Company</Label>
+                <Input
+                  id="new-company"
+                  value={newContact.company}
+                  onChange={(e) => setNewContact({ ...newContact, company: e.target.value })}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="new-status">Status</Label>
+                <Select
+                  value={newContact.status}
+                  onValueChange={(value: Contact["status"]) => setNewContact({ ...newContact, status: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="lead">Lead</SelectItem>
+                    <SelectItem value="prospect">Prospect</SelectItem>
+                    <SelectItem value="customer">Customer</SelectItem>
+                    <SelectItem value="inactive">Inactive</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex justify-end">
+                <Button type="submit">Add Contact</Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <Card>
