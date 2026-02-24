@@ -3,17 +3,15 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/useAuth";
 import {
-  Clock,
-  MapPin,
+  Home,
   Users,
-  FileText,
+  MessageCircle,
   BarChart2,
   Settings,
+  Mail,
   Menu,
-  X,
-  Shield
+  X
 } from "lucide-react";
 
 type NavItem = {
@@ -24,28 +22,28 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    title: "Time Clock",
+    title: "Dashboard",
     href: "/",
-    icon: <Clock className="h-5 w-5" />,
+    icon: <Home className="h-5 w-5" />,
   },
   {
-    title: "Job Sites",
-    href: "/job-sites",
-    icon: <MapPin className="h-5 w-5" />,
-  },
-  {
-    title: "Workers",
-    href: "/workers",
+    title: "Contacts",
+    href: "/contacts",
     icon: <Users className="h-5 w-5" />,
   },
   {
-    title: "Timesheets",
-    href: "/timesheets",
-    icon: <FileText className="h-5 w-5" />,
+    title: "Messages",
+    href: "/messages",
+    icon: <MessageCircle className="h-5 w-5" />,
   },
   {
-    title: "Reports",
-    href: "/reports",
+    title: "Email",
+    href: "/email",
+    icon: <Mail className="h-5 w-5" />,
+  },
+  {
+    title: "Analytics",
+    href: "/analytics",
     icon: <BarChart2 className="h-5 w-5" />,
   },
   {
@@ -58,26 +56,17 @@ const navItems: NavItem[] = [
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
-  const { isAdmin } = useAuth();
-
-  const adminItems: NavItem[] = [
-    {
-      title: "Admin Panel",
-      href: "/admin",
-      icon: <Shield className="h-5 w-5" />,
-    },
-  ];
 
   return (
     <div
       className={cn(
-        "flex flex-col h-screen bg-sidebar-background border-r border-sidebar-border transition-all duration-300",
+        "flex flex-col h-screen bg-white border-r border-gray-200 transition-all duration-300",
         collapsed ? "w-20" : "w-64"
       )}
     >
-      <div className="flex items-center justify-between h-16 px-4 border-b border-sidebar-border">
+      <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
         {!collapsed && (
-          <h1 className="text-lg font-bold text-primary">FieldClock</h1>
+          <h1 className="text-lg font-semibold text-crm-blue">MicroCRM</h1>
         )}
         <Button
           variant="ghost"
@@ -96,10 +85,10 @@ export default function Sidebar() {
             to={item.href}
             className={cn(
               "flex items-center p-3 text-sm font-medium rounded-md transition-colors",
-              "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+              "hover:bg-crm-blue-light hover:text-crm-blue",
               location.pathname === item.href
-                ? "bg-sidebar-accent text-primary"
-                : "text-sidebar-foreground",
+                ? "bg-crm-blue-light text-crm-blue"
+                : "text-crm-gray-dark",
               collapsed ? "justify-center" : "justify-start"
             )}
           >
@@ -109,37 +98,15 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {isAdmin && (
-        <nav className="px-4 pb-2 space-y-2 border-t border-sidebar-border pt-2">
-          {adminItems.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className={cn(
-                "flex items-center p-3 text-sm font-medium rounded-md transition-colors",
-                "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                location.pathname === item.href
-                  ? "bg-sidebar-accent text-primary"
-                  : "text-sidebar-foreground",
-                collapsed ? "justify-center" : "justify-start"
-              )}
-            >
-              {item.icon}
-              {!collapsed && <span className="ml-3">{item.title}</span>}
-            </Link>
-          ))}
-        </nav>
-      )}
-
-      <div className="p-4 border-t border-sidebar-border">
+      <div className="p-4 border-t border-gray-200">
         <div 
           className={cn(
-            "flex items-center p-2 rounded-md bg-primary/10 text-primary text-xs font-semibold",
+            "flex items-center p-2 rounded-md bg-crm-blue-light text-crm-blue text-xs",
             collapsed ? "justify-center" : "px-3"
           )}
         >
-          {!collapsed && "$15/user"} 
-          {collapsed && "$15"}
+          {!collapsed && "Free Plan"} 
+          {collapsed && "FREE"}
         </div>
       </div>
     </div>
