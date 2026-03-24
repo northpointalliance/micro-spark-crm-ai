@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Edit } from "lucide-react";  // Corrected icon import
+import { Edit } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Contact } from "@/data/mockData";
+import { Tables } from "@/integrations/supabase/types";
+
+type Contact = Tables<"contacts">;
 
 interface EditContactDialogProps {
   contact: Contact;
@@ -30,62 +31,33 @@ export function EditContactDialog({ contact, onSave }: EditContactDialogProps) {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={(open) => { setIsOpen(open); if (open) setFormData(contact); }}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm">
-          <Edit className="h-4 w-4" />  {/* Corrected icon usage */}
-        </Button>
+        <Button variant="ghost" size="sm"><Edit className="h-4 w-4" /></Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Edit Contact</DialogTitle>
-        </DialogHeader>
+        <DialogHeader><DialogTitle>Edit Contact</DialogTitle></DialogHeader>
         <form onSubmit={handleSubmit} className="grid gap-4 py-4">
           <div className="grid gap-2">
             <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            />
+            <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            />
+            <Input id="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="phone">Phone</Label>
-            <Input
-              id="phone"
-              type="tel"
-              value={formData.phone || ""}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            />
+            <Input id="phone" type="tel" value={formData.phone || ""} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="company">Company</Label>
-            <Input
-              id="company"
-              value={formData.company || ""}
-              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-            />
+            <Input id="company" value={formData.company || ""} onChange={(e) => setFormData({ ...formData, company: e.target.value })} />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="status">Status</Label>
-            <Select
-              value={formData.status}
-              onValueChange={(value: Contact['status']) =>
-                setFormData({ ...formData, status: value })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select status" />
-              </SelectTrigger>
+            <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value })}>
+              <SelectTrigger><SelectValue placeholder="Select status" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="lead">Lead</SelectItem>
                 <SelectItem value="prospect">Prospect</SelectItem>
@@ -94,9 +66,7 @@ export function EditContactDialog({ contact, onSave }: EditContactDialogProps) {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex justify-end">
-            <Button type="submit">Save Changes</Button>
-          </div>
+          <div className="flex justify-end"><Button type="submit">Save Changes</Button></div>
         </form>
       </DialogContent>
     </Dialog>
